@@ -330,8 +330,15 @@ Full-wave 3D finite-element simulations in Ansys HFSS take 15 to 45 minutes per 
 
 \begin{figure}[!ht]
 \centering
+\includegraphics[width=\columnwidth]{ansys_s_parameter_full_window.png}
+\caption{Ansys Electronics Desktop 2026 R1 execution environment showing successful linear network simulation (`Total simulator time: 0:00:00`), Project Manager hierarchy with generated reports, and active plot canvas.}
+\label{fig:ansys_full_window}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
 \includegraphics[width=\columnwidth]{ansys_s_parameter_plot.png}
-\caption{Authentic S-parameter simulation results from Ansys Circuit 2026 R1. The forward transmission curve $|S_{21}|$ exhibits a sharp resonance transmission peak at exactly $7.042\text{ GHz}$, validating the analytical quarter-wave resonator model ($L_r = 1.5\text{ nH}, C_r = 340\text{ fF}$) and coupling capacitance ($C_4 = 4.0\text{ fF}$).}
+\caption{Detailed S-parameter transmission curve $|S_{21}|$ (cyan). The peak occurs at exactly $7.042\text{ GHz}$ with an amplitude of $-20.8\text{ dB}$, confirming the target quarter-wave resonator resonance and weak dispersive capacitive coupling ($g/2\pi \approx 60\text{ MHz}$) across $C_4 = 4.0\text{ fF}$.}
 \label{fig:ansys_s_parameters}
 \end{figure}
 
