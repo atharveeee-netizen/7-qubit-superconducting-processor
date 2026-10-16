@@ -342,6 +342,32 @@ Full-wave 3D finite-element simulations in Ansys HFSS take 15 to 45 minutes per 
 \label{fig:ansys_s_parameters}
 \end{figure}
 
+\subsection{Phase Response \& Dispersive Readout Verification}
+In circuit QED, qubit state discrimination relies on measuring the phase rotation of the reflected or transmitted microwave probe tone rather than power absorption. The state-dependent dispersive Hamiltonian introduces a frequency shift $\pm \chi$ to the cavity, rotating the output microwave signal in the IQ plane by:
+\begin{equation}
+\Delta\theta = 2 \arctan\left(\frac{2\chi}{\kappa}\right)
+\end{equation}
+Plotting the phase angle $\angle S_{21}$ ($\text{ang\_deg}$) reveals a sharp $180^\circ$ phase transition at $7.042\text{ GHz}$, jumping abruptly from $-95.4^\circ$ to $+84.8^\circ$. This steep phase derivative ($d\theta/df$) provides the sensitivity required for high-fidelity single-shot quantum state readout.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{ansys_s21_phase_plot.png}
+\caption{Transmission phase angle $\angle S_{21}$ ($\text{ang\_deg}$). The sharp step transition across $7.042\text{ GHz}$ ($\Delta\theta \approx 180^\circ$) experimentally verifies the phase-sensitive dispersive readout mechanism.}
+\label{fig:ansys_phase}
+\end{figure}
+
+\subsection{Complex Input Impedance \& Quality Factor Validation}
+The input impedance seen looking into Port 1 verifies both parallel tank resonance and input coupling capacitance $C_2 = 2.0\text{ fF}$. Below resonance, the network behaves capacitively. At exactly $f_r = 7.042\text{ GHz}$, the imaginary reactance vanishes ($\text{Im}(Z_{11}) = 0\,\Omega$), and the impedance magnitude spikes to a parallel anti-resonance peak of $51.8\text{ k}\Omega$. 
+
+The narrow linewidth of this impedance peak confirms a loaded quality factor $Q_L \approx 7{,}040$, placing the resonator in the optimal readout regime: sufficiently high $Q$ to store readout photons without inducing Purcell decay, yet low enough to enable fast cavity depletion ($\tau \sim 160\text{ ns}$) between consecutive quantum logic operations.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{ansys_z11_impedance_plot.png}
+\caption{Input impedance magnitude $|Z_{11}|$ in $\text{k}\Omega$. The parallel resonance peak reaches $51.8\text{ k}\Omega$ at $7.042\text{ GHz}$, validating low dielectric insertion loss and loaded quality factor $Q_L \sim 7{,}000$.}
+\label{fig:ansys_impedance}
+\end{figure}
+
 \appendices
 
 \section{Integrated Theoretical \& Microwave Lexicon}
