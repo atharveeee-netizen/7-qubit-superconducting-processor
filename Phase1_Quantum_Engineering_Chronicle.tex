@@ -368,6 +368,53 @@ The narrow linewidth of this impedance peak confirms a loaded quality factor $Q_
 \label{fig:ansys_impedance}
 \end{figure}
 
+
+\section{Topology Co-Design \& Monte Carlo Collision Engine}
+To establish the physical foundation of our 7-qubit processor, we executed an 800,000-trial Monte Carlo yield analysis evaluating four competing superconducting transmon topologies under stochastic fabrication spread ($\sigma \in [5, 132]\text{ MHz}$, modeling room-temperature junction resistance variations $\delta R_n / R_n$):
+\begin{enumerate}
+    \item \textbf{7Q Heavy-Hex Fragment (Simon / IBM Architecture):} Low coordination degree ($z \le 3$), nearest-neighbor CPW coupling.
+    \item \textbf{7Q Linear Chain:} $z \le 2$ boundary-limited topology.
+    \item \textbf{7Q Ring Topology:} $z = 2$ periodic boundary lattice.
+    \item \textbf{7Q Radial-Star Hub (Negative Control):} $z = 6$ central hub transmon surrounded by 6 peripheral transmons.
+\end{enumerate}
+
+Every simulated chip configuration was evaluated against the full suite of IBM Hertzberg 2021 Type 1--7 frequency collision criteria, enforcing strict detuning constraints ($\Delta \ge 15\text{ MHz}$) across fundamental qubit transitions ($\omega_{01}$), two-photon transitions ($\omega_i - \omega_j = \alpha/2$), straddling collisions ($\omega_i + \alpha_i = \omega_j$), and spectator crosstalk.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{fig1_yield_vs_sigma.png}
+\caption{Monte Carlo collision-free yield versus fabrication frequency spread $\sigma$ for 800,000 chip iterations. The planar Heavy-Hex topology achieves $88.2\%$ yield at $\sigma = 14\text{ MHz}$, whereas the circular star topology collapses to $0.00\%$ due to high coordination crowding.}
+\label{fig:yield_vs_sigma}
+\end{figure}
+
+As revealed in Fig.~\ref{fig:yield_vs_sigma}, the 7-qubit radial-star topology exhibits an absolute yield of $0.00\%$ across all standard fabrication spreads. Crowding 6 transmon spectators onto a single central hub guarantees at least one resonant or straddling frequency collision, rendering the processor inoperable. In sharp contrast, the Heavy-Hex fragment achieves $88.2\%$ collision-free yield at standard laser-annealed tolerances ($\sigma = 14\text{ MHz}$) and retains $40.8\%$ yield even under unannealed industrial spread ($\sigma = 40\text{ MHz}$).
+
+\section{Physical 2D CAD Synthesis in Qiskit Metal}
+Guided by our microwave circuit synthesis and yield co-design, the physical layouts were synthesized in \texttt{Qiskit Metal} on a $10\text{ mm} \times 10\text{ mm}$ high-resistivity silicon substrate ($\varepsilon_r = 11.45$). 
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{fig_circular_star_qiskit_metal_gui_full.png}
+\caption{Physical CAD layout of the 7-qubit circular star baseline synthesized in the native Qiskit Metal Qt interface. The central transmon ($Q_0$) is surrounded by 6 peripheral transmons ($Q_1$--$Q_6$) at radius $R = 2.8\text{ mm}$.}
+\label{fig:circular_gui}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.85\columnwidth]{fig_circular_star_cad_zoom.png}
+\caption{High-resolution zoom of transmon pockets and shunt capacitor pads ($450\,\mu\text{m} \times 30\,\mu\text{m}$) separated by a $30\,\mu\text{m}$ junction gap, illustrating ground plane clearance pockets ($650\,\mu\text{m} \times 650\,\mu\text{m}$).}
+\label{fig:cad_zoom}
+\end{figure}
+
+Fig.~\ref{fig:circular_gui} and Fig.~\ref{fig:cad_zoom} record the physical realization of the circular baseline in Qiskit Metal. To overcome the central routing bottleneck and microwave crosstalk inherent in this geometry, we ported the processor to the planar Heavy-Hex layout (\texttt{planar\_heavy\_hex\_topology.py}), incorporating 6 dedicated coplanar waveguide (CPW) meandered coupling buses and dedicated readout coupling pads. The final layout was rendered into standard binary GDSII format (\texttt{seven\_qubit\_chip\_mask.gds}) for electron-beam lithography mask inspection in KLayout.
+
+\section{Publication Roadmap: Conference vs. Journal Modularity}
+To maximize academic impact while accommodating conference versus journal publication formats, this design suite archives all underlying simulation raw data, CAD polygons, and high-resolution figures:
+\begin{itemize}
+    \item \textbf{Conference Track (e.g., IEEE IMS 2027 / IEEE MTT-S):} 4-page double-column format focusing on the yield-aware topology co-design thesis, Ansys Circuit lumped synthesis, and the $88.2\%$ vs $0.00\%$ yield proof.
+    \item \textbf{Journal Track (e.g., IEEE Transactions on Quantum Engineering / TMTT):} Comprehensive 10--12 page manuscript expanding into full-wave 3D HFSS eigenmode field distributions, Ansys Q3D Maxwell capacitance matrices, and pyEPR Hamiltonian quantization.
+\end{itemize}
+
 \appendices
 
 \section{Integrated Theoretical \& Microwave Lexicon}
