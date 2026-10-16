@@ -406,7 +406,22 @@ Guided by our microwave circuit synthesis and yield co-design, the physical layo
 \label{fig:cad_zoom}
 \end{figure}
 
-Fig.~\ref{fig:circular_gui} and Fig.~\ref{fig:cad_zoom} record the physical realization of the circular baseline in Qiskit Metal. To overcome the central routing bottleneck and microwave crosstalk inherent in this geometry, we ported the processor to the planar Heavy-Hex layout (\texttt{planar\_heavy\_hex\_topology.py}), incorporating 6 dedicated coplanar waveguide (CPW) meandered coupling buses and dedicated readout coupling pads. The final layout was rendered into standard binary GDSII format (\texttt{seven\_qubit\_chip\_mask.gds}) for electron-beam lithography mask inspection in KLayout.
+Fig.~\ref{fig:circular_gui} and Fig.~\ref{fig:cad_zoom} record the physical realization of the circular baseline in Qiskit Metal. To overcome the central routing bottleneck and microwave crosstalk inherent in this geometry, we ported the processor to the planar Heavy-Hex layout (\texttt{planar\_heavy\_hex\_topology.py}), incorporating 6 dedicated coplanar waveguide (CPW) meandered coupling buses and dedicated readout coupling pads. 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{fig_planar_heavy_hex_gui_full.png}
+\caption{Physical CAD realization of the 7-qubit planar Heavy-Hex processor in the active Qiskit Metal Qt design canvas. All seven transmon pockets ($Q_0$--$Q_6$) are positioned in two parallel rows with central bridge $Q_3$, providing optimal microwave isolation and open corridors for meandered resonator routing.}
+\label{fig:planar_gui}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.85\columnwidth]{fig_planar_heavy_hex_cad_zoom.png}
+\caption{Detailed viewport zoom of the 7-qubit planar Heavy-Hex transmon arrangement, showing ground plane pockets ($650\,\mu\text{m} \times 650\,\mu\text{m}$), $400\,\mu\text{m} \times 280\,\mu\text{m}$ shunt capacitor pads, and $30\,\mu\text{m}$ Josephson junction gaps.}
+\label{fig:planar_zoom}
+\end{figure}
+
+The final layout was rendered into standard binary GDSII format (\texttt{seven\_qubit\_chip\_mask.gds}) for electron-beam lithography mask inspection in KLayout.
 
 \section{Publication Roadmap: Conference vs. Journal Modularity}
 To maximize academic impact while accommodating conference versus journal publication formats, this design suite archives all underlying simulation raw data, CAD polygons, and high-resolution figures:
