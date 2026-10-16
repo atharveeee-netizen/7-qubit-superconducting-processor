@@ -1,10 +1,20 @@
 # Project Handover & Independent AI Evaluation Brief
 
-## 1. Executive Summary
-* **Project:** 7-Qubit Planar Superconducting Transmon Processor (IBM Radial-Star Lattice).
-* **Target Venue:** IEEE International Microwave Symposium (IMS 2027) — Technical Paper (Deadline: Dec 8, 2026) targeting the Best Student Paper Award.
-* **Secondary Archival Target:** IEEE Transactions on Quantum Engineering (TQE) / IEEE T-MTT.
-* **Cost Strategy:** $0 out-of-pocket attendance via the IEEE IMS PhD Student Sponsorship (covers 6 nights hotel + 100% free registration) and MTT-S Student Travel Grants.
+## 1. Target Venues & Financial Sponsorship
+* **Primary Target (Conference):** **IEEE International Microwave Symposium (IMS 2027)**
+  * *Organizing Society:* IEEE Microwave Theory and Technology Society (MTT-S).
+  * *Paper Deadline:* **December 8, 2026** (4-page technical paper format).
+  * *Technical Track:* High-Frequency Cryogenic Components & Quantum Microwave Hardware.
+  * *Target Award:* Best Student Paper Award.
+  * *Zero-Cost Funding:* **IEEE IMS PhD Student Sponsorship** (covers 6 nights hotel + 100% complimentary registration) + **IEEE MTT-S Student Travel Grant** ($1,000–$1,500 flight reimbursement).
+
+* **Secondary Target (Quantum Flagship):** **IEEE Quantum Week 2027 (QCE 2027)**
+  * *Organizing Society:* IEEE Computer Society / Quantum Technical Community.
+  * *Paper Deadline:* **Mid-April 2027** (Full 6–10 page paper).
+  * *Technical Track:* Quantum Hardware Design, Quantum EDA & cQED Co-Design.
+  * *Zero-Cost Funding:* **Student Volunteer Program** (100% free registration & meals) + **IEEE Computer Society Student Travel Grant**.
+
+* **Follow-on Archival Journal:** **IEEE Transactions on Quantum Engineering (TQE)** / **IEEE Transactions on Microwave Theory and Techniques (T-MTT)** (Extended 10–12 page manuscript with complete 3D FEM eigenmode analysis).
 
 ---
 
