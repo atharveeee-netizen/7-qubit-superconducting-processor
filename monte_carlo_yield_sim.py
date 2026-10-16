@@ -1,6 +1,8 @@
 import os
-import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Headless backend for crash-proof background/CI execution
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Set publication style
 plt.rcParams['font.family'] = 'serif'
@@ -117,6 +119,7 @@ ax.grid(True, linestyle='--', alpha=0.5)
 ax.legend(frameon=True, facecolor='white', framealpha=0.9, fontsize=9.5, loc='upper right')
 
 plt.tight_layout()
-out_png = r'C:\Users\noobg\.gemini\antigravity-ide\scratch\fig1_yield_vs_sigma.png'
+script_dir = os.path.dirname(os.path.abspath(__file__))
+out_png = os.path.join(script_dir, 'fig1_yield_vs_sigma.png')
 plt.savefig(out_png)
-print(f"\nSaved publication-grade Figure 1 to {out_png}")
+print(f"\n[SUCCESS] Saved publication-grade Figure 1 to {out_png}")
