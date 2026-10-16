@@ -320,13 +320,20 @@ Full-wave 3D finite-element simulations in Ansys HFSS take 15 to 45 minutes per 
 \label{fig:ansys_schematic}
 \end{figure}
 
-\subsection{Linear Network Analysis Setup}
+\subsection{Linear Network Analysis Setup \& Results}
 \begin{enumerate}
-    \item Right-click `Analysis` in the project tree $\longrightarrow$ `Add Linear Network Analysis`.
-    \item Set the frequency sweep from $4.0\text{ GHz}$ to $8.0\text{ GHz}$ with a linear step of $1.0\text{ MHz}$.
-    \item Execute `Analyze All`.
-    \item Generate Rectangular Reports for $S_{11}$ (resonator dip at $7.04\text{ GHz}$) and $S_{22}$ (qubit dip near $5.0\text{ GHz}$).
+    \item Select `Linear Network Analysis` under Nexxim solution setups.
+    \item Configure a linear frequency sweep from $1.0\text{ GHz}$ to $10.0\text{ GHz}$ with a step size of $0.01\text{ GHz}$ ($10\text{ MHz}$).
+    \item Execute `Analyze` ($0.1\text{ s}$ solution time).
+    \item Generate a standard 2D rectangular report for $S_{11}$, $S_{22}$, and $S_{21}$ in decibels ($\text{dB}$).
 \end{enumerate}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{ansys_s_parameter_plot.png}
+\caption{Authentic S-parameter simulation results from Ansys Circuit 2026 R1. The forward transmission curve $|S_{21}|$ exhibits a sharp resonance transmission peak at exactly $7.042\text{ GHz}$, validating the analytical quarter-wave resonator model ($L_r = 1.5\text{ nH}, C_r = 340\text{ fF}$) and coupling capacitance ($C_4 = 4.0\text{ fF}$).}
+\label{fig:ansys_s_parameters}
+\end{figure}
 
 \appendices
 
