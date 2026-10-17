@@ -425,9 +425,16 @@ The final layout was rendered into standard binary GDSII format (\texttt{seven\_
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=\columnwidth]{simon_lecture_screenshot_56min.png}
-\caption{Canonical 7-qubit planar transmon processor architecture matching Simon's IBM Qiskit Metal masterclass. The layout integrates 7 transmons (including center $Q_4$ with dedicated charge line), 6 wirebond launchpads (4 top, 2 bottom), 6 meandered CPW readout resonators, and 6 inter-qubit coupling buses.}
-\label{fig:simon_canonical}
+\includegraphics[width=\columnwidth]{simon_7qubit_gui_live_full.png}
+\caption{Live execution and GUI rendering of the 7-qubit quantum processor in Qiskit Metal on the local laboratory workstation. The component tree (left) verifies all 16 micro-elements (transmons Q0--Q6, 6 wirebond launchpads, 6 meandered readout resonators) initialized with \texttt{good} status and verified geometry.}
+\label{fig:qmetal_live_gui}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\columnwidth]{simon_7qubit_cad_live_zoom.png}
+\caption{High-resolution CAD canvas viewport of the synthesized 7-qubit superconducting processor following interactive autoscale. The layout highlights the 7 transmon pockets, central flux-tunable transmon Q4 with charge line (y = 0.87 mm), 99 um corner fillets on the 6 meandered resonators, 6 inter-qubit buses, and outer wirebond launchpads.}
+\label{fig:qmetal_live_cad}
 \end{figure}
 
 \section{Publication Roadmap: Conference vs. Journal Modularity}
