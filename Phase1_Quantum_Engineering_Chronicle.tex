@@ -198,20 +198,43 @@ Reflections induce standing waves between wirebonds and package cavities, distor
 
 \begin{figure}[!ht]
 \centering
-\begin{tikzpicture}[scale=0.95]
-    \draw[fill=blue!5, draw=black] (-3.4, -0.9) rectangle (3.4, 0);
-    \node at (0, -0.45) {\footnotesize High-Resistivity Silicon ($\varepsilon_r = 11.45, h = 500\,\mu\text{m}$)};
-    \draw[fill=gray!40, draw=black] (-3.4, 0) rectangle (-1.3, 0.25);
-    \draw[fill=gray!40, draw=black] (1.3, 0) rectangle (3.4, 0.25);
-    \draw[fill=blue!30, draw=black] (-0.65, 0) rectangle (0.65, 0.25);
-    \node at (0, 0.125) {\scriptsize Center};
-    \node at (-2.35, 0.125) {\scriptsize Ground};
-    \node at (2.35, 0.125) {\scriptsize Ground};
-    \draw[<->, thick] (-1.3, 0.42) -- (-0.65, 0.42) node[midway, above, font=\tiny] {$S=6\,\mu\text{m}$};
-    \draw[<->, thick] (-0.65, 0.42) -- (0.65, 0.42) node[midway, above, font=\tiny] {$W=10\,\mu\text{m}$};
-    \draw[<->, thick] (0.65, 0.42) -- (1.3, 0.42) node[midway, above, font=\tiny] {$S=6\,\mu\text{m}$};
+\begin{tikzpicture}[>=stealth, scale=0.92]
+    % Silicon substrate
+    \draw[fill=blue!5, draw=black, thick] (-3.8, -1.1) rectangle (3.8, 0);
+    \node[font=\footnotesize] at (0, -0.55) {High-Resistivity Silicon ($\varepsilon_r = 11.45, h = 500\,\mu\text{m}$)};
+
+    % Ground planes
+    \draw[fill=gray!35, draw=black, thick] (-3.8, 0) rectangle (-1.5, 0.3);
+    \draw[fill=gray!35, draw=black, thick] (1.5, 0) rectangle (3.8, 0.3);
+    \node[font=\scriptsize\bfseries] at (-2.65, 0.15) {Ground Plane};
+    \node[font=\scriptsize\bfseries] at (2.65, 0.15) {Ground Plane};
+
+    % Center conductor
+    \draw[fill=blue!30, draw=black, thick] (-0.75, 0) rectangle (0.75, 0.3);
+    \node[font=\scriptsize\bfseries] at (0, 0.15) {Center};
+
+    % Extension lines for dimensions
+    \draw[gray!60, dashed] (-1.5, 0.3) -- (-1.5, 0.85);
+    \draw[gray!60, dashed] (-0.75, 0.3) -- (-0.75, 0.85);
+    \draw[gray!60, dashed] (0.75, 0.3) -- (0.75, 0.85);
+    \draw[gray!60, dashed] (1.5, 0.3) -- (1.5, 0.85);
+
+    % Dimension symbols S, W, S with generous spacing
+    \draw[<->, thick] (-1.5, 0.6) -- (-0.75, 0.6) node[midway, above=1pt, font=\small\bfseries] {$S$};
+    \draw[<->, thick] (-0.75, 0.6) -- (0.75, 0.6) node[midway, above=1pt, font=\small\bfseries] {$W$};
+    \draw[<->, thick] (0.75, 0.6) -- (1.5, 0.6) node[midway, above=1pt, font=\small\bfseries] {$S$};
+
+    % Substrate height dimension on the left
+    \draw[gray!60, dashed] (-3.8, 0) -- (-4.1, 0);
+    \draw[gray!60, dashed] (-3.8, -1.1) -- (-4.1, -1.1);
+    \draw[<->, thick] (-4.0, -1.1) -- (-4.0, 0) node[midway, left=1pt, font=\small\bfseries] {$h$};
+
+    % Engineering parameter values explicitly listed below
+    \node[font=\scriptsize, align=center] at (0, -1.45) {
+        $W = 10.0\,\mu\text{m}$ (trace), \quad $S = 6.0\,\mu\text{m}$ (gap), \quad $h = 500\,\mu\text{m}$ (substrate)
+    };
 \end{tikzpicture}
-\caption{Cross section of the coplanar waveguide (CPW) transmission line synthesized for $Z_0 = 50.0\,\Omega$ on high-resistivity silicon.}
+\caption{Cross section of the coplanar waveguide (CPW) transmission line with center trace width $W = 10.0\,\mu\text{m}$ and gap $S = 6.0\,\mu\text{m}$ synthesized on high-resistivity silicon to yield $Z_0 = 50.0\,\Omega$.}
 \label{fig:cpw}
 \end{figure}
 
