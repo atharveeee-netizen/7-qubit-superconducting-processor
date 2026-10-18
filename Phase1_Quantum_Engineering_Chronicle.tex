@@ -298,22 +298,15 @@ To validate analytical parameters before executing computationally intensive 3D 
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=\columnwidth]{ansys_circuit_schematic.png}
-\caption{Synthesized lumped microwave network schematic in Ansys Circuit 2026 R1 with fully referenced $50.0\,\Omega$ ports, coupling capacitors, and grounded return planes.}
-\label{fig:ansys_schematic}
+\includegraphics[width=\columnwidth]{lumped_circuit_schematic.png}
+\caption{Lumped microwave network schematic of the coupled readout resonator and transmon qubit, highlighting the $50\,\Omega$ coaxial ports, coupling capacitors, and low-inductance ground return planes.}
+\label{fig:circuit_schematic}
 \end{figure}
 
-Fig.~\ref{fig:ansys_schematic} displays the network schematic constructed in the simulator: Port 1 excites the resonator feed via $C_{\text{in}} = 2.0\text{ fF}$, while Port 2 monitors the transmon node coupled through $C_c = 4.0\text{ fF}$.
+Fig.~\ref{fig:circuit_schematic} displays the network schematic: Port 1 excites the resonator feed via $C_{\text{in}} = 2.0\text{ fF}$, while Port 2 monitors the transmon node coupled through $C_c = 4.0\text{ fF}$.
 
-\subsection{Execution Environment and Linear S-Parameter Response}
-The solver was configured for a linear frequency sweep from $1.0\text{ GHz}$ to $10.0\text{ GHz}$ in steps of $10\text{ MHz}$ ($0.01\text{ GHz}$). Fig.~\ref{fig:ansys_full_window} confirms successful execution within the Ansys Electronics Desktop environment.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\columnwidth]{ansys_s_parameter_full_window.png}
-\caption{Ansys Electronics Desktop 2026 R1 execution environment showing completed linear network simulation (`Total simulator time: 0:00:00`), Project Manager hierarchy, and active plot canvas.}
-\label{fig:ansys_full_window}
-\end{figure}
+\subsection{Linear S-Parameter Transmission Response}
+The solver executed a linear frequency sweep from $1.0\text{ GHz}$ to $10.0\text{ GHz}$ with a step size of $10\text{ MHz}$ ($0.01\text{ GHz}$). Fig.~\ref{fig:ansys_s_parameters} shows the resulting forward transmission magnitude $|S_{21}|$.
 
 \begin{figure}[!ht]
 \centering
@@ -374,17 +367,9 @@ Fig.~\ref{fig:yield_vs_sigma} reveals that the 7-qubit radial-star topology yiel
 
 \section{Physical CAD Synthesis and Routing Bottleneck Analysis}
 
-Physical layouts were synthesized in Qiskit Metal on a $10\text{ mm} \times 10\text{ mm}$ high-resistivity silicon substrate. Fig.~\ref{fig:circular_gui} shows the baseline degree-6 circular star geometry synthesized in the CAD interface.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\columnwidth]{qiskit_metal_gui_7qubit_star_layout.png}
-\caption{Physical CAD layout of the 7-qubit circular star baseline synthesized in Qiskit Metal. The central transmon ($Q_0$) is surrounded by six perimeter transmons ($Q_1$--$Q_6$) positioned at radius $R = 2.8\text{ mm}$.}
-\label{fig:circular_gui}
-\end{figure}
+To establish concrete empirical layout evidence explaining the statistical collapse observed in Monte Carlo modeling, physical layouts were synthesized in Qiskit Metal on a $10\text{ mm} \times 10\text{ mm}$ high-resistivity silicon substrate. We routed six CPW coupling buses into the central hub transmon ($Q_0$). Fig.~\ref{fig:star_breakdown} and Table~\ref{tab:topology_comparison} document the resulting physical layout failure modes.
 
 \subsection{Physical Failure Modes in High-Coordination Planar Star Topologies}
-To establish concrete empirical layout evidence explaining the statistical collapse observed in Monte Carlo modeling, we routed six CPW coupling buses into the central hub transmon ($Q_0$) using Qiskit Metal. Fig.~\ref{fig:star_breakdown} and Table~\ref{tab:topology_comparison} document the resulting physical layout failure modes.
 
 \begin{figure*}[!t]
 \centering
@@ -428,19 +413,12 @@ The pocket boundary zoom in Fig.~\ref{fig:star_breakdown}(b) reveals acute pocke
 The geometry compiler diagnostic log in Fig.~\ref{fig:star_breakdown}(c) records design-rule check (DRC) short-segment and fillet curvature violations ($r < 80\,\mu\text{m}$). Sharp meander bends pinch the return ground slots, concentrating microwave surface currents and multiplying conductor dissipation losses ($\Delta(1/Q) > 3 \times 10^{-6}$).
 
 \subsection{Planar Heavy-Hexagonal Layout Implementation}
-To eliminate the routing blockades and crosstalk inherent in the star geometry, we transitioned the processor to the planar heavy-hexagonal layout shown in Fig.~\ref{fig:qmetal_live_gui} and Fig.~\ref{fig:qmetal_live_cad}.
+To eliminate the routing blockades and crosstalk inherent in the star geometry, we transitioned the processor to the planar heavy-hexagonal layout shown in Fig.~\ref{fig:qmetal_live_cad}.
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=\columnwidth]{simon_7qubit_gui_live_full.png}
-\caption{Execution and GUI rendering of the 7-qubit heavy-hexagonal quantum processor in Qiskit Metal. The component hierarchy confirms all 16 micro-elements initialized with verified geometry.}
-\label{fig:qmetal_live_gui}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\columnwidth]{simon_7qubit_cad_live_zoom.png}
-\caption{CAD canvas viewport of the synthesized 7-qubit heavy-hexagonal processor. The layout highlights seven transmon pockets, central flux-tunable transmon $Q_4$ with dedicated charge line ($y = 0.87\text{ mm}$), $99\,\mu\text{m}$ corner fillets on readout resonators, inter-qubit buses, and outer wirebond launchpads.}
+\includegraphics[width=0.85\columnwidth]{simon_7qubit_cad_live_zoom.png}
+\caption{Synthesized 7-qubit heavy-hexagonal quantum processor in Qiskit Metal. The layout highlights unblocked linear readout and XY drive corridors, seven transmon pockets, central flux-tunable transmon $Q_4$ with dedicated charge line ($y = 0.87\text{ mm}$), $99\,\mu\text{m}$ corner fillets on readout resonators, inter-qubit CPW buses, and perimeter wirebond launchpads.}
 \label{fig:qmetal_live_cad}
 \end{figure}
 
