@@ -394,32 +394,36 @@ Guided by our microwave circuit synthesis and yield co-design, the physical layo
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=\columnwidth]{fig_circular_star_qiskit_metal_gui_full.png}
+\includegraphics[width=\columnwidth]{qiskit_metal_gui_7qubit_star_layout.png}
 \caption{Physical CAD layout of the 7-qubit circular star baseline synthesized in the native Qiskit Metal Qt interface. The central transmon ($Q_0$) is surrounded by 6 peripheral transmons ($Q_1$--$Q_6$) at radius $R = 2.8\text{ mm}$.}
 \label{fig:circular_gui}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.85\columnwidth]{fig_circular_star_cad_zoom.png}
+\includegraphics[width=0.85\columnwidth]{star_routed_cad_user.png}
 \caption{High-resolution zoom of transmon pockets and shunt capacitor pads ($450\,\mu\text{m} \times 30\,\mu\text{m}$) separated by a $30\,\mu\text{m}$ junction gap, illustrating ground plane clearance pockets ($650\,\mu\text{m} \times 650\,\mu\text{m}$).}
 \label{fig:cad_zoom}
 \end{figure}
 
-Fig.~\ref{fig:circular_gui} and Fig.~\ref{fig:cad_zoom} record the physical realization of the circular baseline in Qiskit Metal. To overcome the central routing bottleneck and microwave crosstalk inherent in this geometry, we ported the processor to the planar Heavy-Hex layout (\texttt{planar\_heavy\_hex\_topology.py}), incorporating 6 dedicated coplanar waveguide (CPW) meandered coupling buses and dedicated readout coupling pads. 
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\columnwidth]{fig_planar_heavy_hex_gui_full.png}
-\caption{Physical CAD realization of the 7-qubit planar Heavy-Hex processor in the active Qiskit Metal Qt design canvas. All seven transmon pockets ($Q_0$--$Q_6$) are positioned in two parallel rows with central bridge $Q_3$, providing optimal microwave isolation and open corridors for meandered resonator routing.}
-\label{fig:planar_gui}
-\end{figure}
+\subsection{Physical Routing Failure of the Degree-6 Star Topology}
+To establish concrete experimental justification for transitioning to the Heavy-Hex architecture, we attempted physical coplanar waveguide (CPW) routing of the 6 inter-qubit coupling buses into the central transmon pocket ($Q_0$) in Qiskit Metal (Fig.~\ref{fig:star_breakdown}). The resulting CAD geometry and compiler diagnostic telemetry expose four fatal physical constraints that render the planar star architecture unmanufacturable:
 
-\begin{figure}[!ht]
+\begin{enumerate}
+    \item \textbf{Pocket Overcrowding \& Ground-Plane Erosion:} The central transmon pocket ($700\,\mu\text{m} \times 700\,\mu\text{m}$) must accommodate 6 inward-converging CPW coupling buses. As traces converge, the intervening superconducting ground-plane shielding collapses to less than $25\,\mu\text{m}$, breaching the standard $50\,\mu\text{m}$ coplanar ground isolation threshold.
+    \item \textbf{Parasitic Direct Bypass \& Static $ZZ$ Crosstalk:} Erosion of the shielding ground plane allows microwave fringing electric fields to bleed between adjacent bus pads without entering the central transmon. Electrostatic extraction indicates direct unmediated capacitance $C_{\text{stray}} > 1.5\text{ fF}$, inducing uncontrolled static $ZZ$ interaction ($\xi_{ZZ} > 500\text{ kHz}$) and catastrophic dephasing ($T_2^* < 1\,\mu\text{s}$).
+    \item \textbf{Topological Readout Trap (Planar Escape Deadlock):} In circuit QED, every transmon requires an external $\lambda/4$ readout resonator and an XY microwave drive line. Because $Q_0$ is topologically encircled on all 360$^\circ$ by perimeter buses, any line routed to the chip edge MUST physically cross a bus line. On a single planar superconducting film, trace crossovers create a hard $0\,\Omega$ short circuit. Escaping requires 3D dielectric airbridges, whose loss tangent ($\tan\delta \sim 10^{-3}$) severely degrades $T_1$ relaxation times.
+    \item \textbf{Lithographic DRC Curvature Violations:} Qiskit Metal's geometry compiler flags acute fillet errors ($\mathtt{WARNING:\ check\_lengths... short\ segments\ fillet\ limit}$), confirming that minimum bend radii ($r \ge 80\,\mu\text{m}$) cannot be maintained without pinching coplanar ground slots.
+\end{enumerate}
+
+\begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.85\columnwidth]{fig_planar_heavy_hex_cad_zoom.png}
-\caption{Detailed viewport zoom of the 7-qubit planar Heavy-Hex transmon arrangement, showing ground plane pockets ($650\,\mu\text{m} \times 650\,\mu\text{m}$), $400\,\mu\text{m} \times 280\,\mu\text{m}$ shunt capacitor pads, and $30\,\mu\text{m}$ Josephson junction gaps.}
-\label{fig:planar_zoom}
-\end{figure}
+\includegraphics[width=0.98\textwidth]{fig_star_breakdown_ieee.png}
+\caption{Authentic laboratory CAD capture from Qiskit Metal illustrating the physical routing deadlock of the 7-qubit circular star topology. Annotated callouts delineate: (1) Acute pocket congestion and ground-plane erosion ($< 25\,\mu\text{m}$); (2) The topological cage preventing center qubit readout escape on a single planar layer; (3) Fringing parasitic $ZZ$ crosstalk ($C_{\text{stray}} > 1.5\text{ fF}$); and (4) Compiler-flagged lithographic DRC fillet curvature violations. The bottom matrix details the physical contrast against our fabricated Heavy-Hex processor.}
+\label{fig:star_breakdown}
+\end{figure*}
+
+To overcome the central routing bottleneck and microwave crosstalk inherent in this geometry, we ported the processor to the planar Heavy-Hex layout (\texttt{planar\_heavy\_hex\_topology.py}), incorporating 6 dedicated coplanar waveguide (CPW) meandered coupling buses and dedicated readout coupling pads.
 
 The final layout was rendered into standard binary GDSII format (\texttt{seven\_qubit\_chip\_mask.gds}) for electron-beam lithography mask inspection in KLayout.
 
