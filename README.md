@@ -1,14 +1,15 @@
-# 7-Qubit Planar Superconducting Transmon Quantum Processor
+# 7-Qubit Planar Superconducting Quantum Processor Design Suite
+### Complete cQED Microwave Architecture, Ansys FEM Simulations, and Qiskit Metal Implementation
 
-[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 [![Qiskit Metal](https://img.shields.io/badge/Qiskit%20Metal-0.1.5-61dafb.svg)](https://qiskit-community.github.io/qiskit-metal/)
 [![Ansys Electronics Desktop](https://img.shields.io/badge/Ansys%20AEDT-2026%20R1-orange.svg)](https://www.ansys.com/products/electronics)
+[![scqubits](https://img.shields.io/badge/scqubits-4.3.1-blueviolet.svg)](https://scqubits-doc.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![IEEE Target](https://img.shields.io/badge/Target-IEEE%20IMS%202027-success.svg)](https://ims-ieee.org/)
 
 **Author:** Atharve Dahima  
 **Affiliation:** Quantum Hardware & Cryogenic Electronics Research  
-**Toolchain:** Qiskit Metal 0.1.5 | Ansys Electronics Desktop 2026 R1 (Circuit / HFSS / Q3D) | pyEPR 1.0.0 | KLayout  
+**Toolchain:** Qiskit Metal 0.1.5 | Ansys Electronics Desktop 2026 R1 (Circuit / HFSS / Q3D) | pyEPR 1.0.0 | scqubits 4.3.1 | KLayout  
 **Repository:** [https://github.com/atharveeee-netizen/7-qubit-superconducting-processor](https://github.com/atharveeee-netizen/7-qubit-superconducting-processor)
 
 ---
@@ -17,7 +18,7 @@
 
 This repository hosts the complete, physical, microwave-verified end-to-end design of a **7-Qubit Planar Superconducting Transmon Quantum Processor** on high-resistivity silicon.
 
-Operating in the circuit quantum electrodynamics (cQED) dispersive regime ($|\Delta| \gg g$), the processor incorporates seven non-linear transmon artificial atoms, six quarter-wavelength ($\lambda/4$) coplanar waveguide (CPW) meandered readout resonators, six nearest-neighbor inter-qubit capacitive coupling buses, and six macroscopic wirebond launchpads.
+Operating in the circuit quantum electrodynamics (cQED) dispersive regime ($|\Delta| \gg g$), the processor incorporates seven non-linear transmon artificial atoms, frequency-multiplexed coplanar waveguide (CPW) readout resonators, nearest-neighbor inter-qubit capacitive coupling buses, macroscopic wirebond launchpads, and 3D finite-element (FEM) electrodynamic simulations.
 
 ### Live Qiskit Metal Desktop Implementation
 Below are the authentic execution captures from the local laboratory workstation running inside the Qiskit Metal CAD canvas:
@@ -31,7 +32,7 @@ Below are the authentic execution captures from the local laboratory workstation
 <p align="center">
   <img src="simon_7qubit_gui_live_full.png" width="85%" alt="Qiskit Metal GUI Component Hierarchy" />
   <br>
-  <em><b>Fig. 2:</b> Native Qiskit Metal Qt GUI window showing all 16 micro-components ($Q_0$--$Q_6$, 6 launchpads, 6 readout meanders) built with verified <code>good</code> status and zero geometric collisions.</em>
+  <em><b>Fig. 2:</b> Native Qiskit Metal Qt GUI window showing all components ($Q_1$--$Q_7$, launchpads, LineTee couplers, readout meanders) built with verified <code>good</code> status and zero geometric collisions.</em>
 </p>
 
 ---
@@ -44,7 +45,7 @@ Below are the authentic execution captures from the local laboratory workstation
 | **Duffing Anharmonicity** | $\alpha$ | $-280\text{ to } -330\text{ MHz}$ | Direct measure of non-linearity: $\alpha \approx -E_C$ |
 | **Charging Energy** | $E_C / h$ | $\approx 280\text{ MHz}$ | Total shunt capacitance $C_\Sigma \approx 70\text{ fF}$ |
 | **Josephson Energy** | $E_J / h$ | $\approx 14.0\text{ GHz}$ | Ratio $E_J / E_C \approx 50$ (Transmon charge noise immunity) |
-| **Josephson Inductance** | $L_J$ | $10.0\text{ -- }11.2\text{ nH}$ | Sub-micron Al/$\text{Al}_2\text{O}_3$/Al tunnel junction |
+| **Josephson Inductance** | $L_J$ | $10.0\text{ -- }12.3\text{ nH}$ | Sub-micron Al/$\text{Al}_2\text{O}_3$/Al tunnel junction |
 | **Readout Resonator Frequencies** | $f_r^{(1..7)}$ | $6.80\text{ -- }7.40\text{ GHz}$ | $100\text{ MHz}$ frequency-multiplexed channel separation |
 | **Resonator Characteristic Impedance**| $Z_0$ | $50.0\,\Omega$ | CPW center conductor $W = 10\,\mu\text{m}$, gap $S = 6\,\mu\text{m}$ |
 | **Qubit-Resonator Coupling** | $g / 2\pi$ | $50\text{ -- }70\text{ MHz}$ | Inter-pad mutual capacitance $C_c \approx 4.0\text{ fF}$ |
@@ -53,39 +54,42 @@ Below are the authentic execution captures from the local laboratory workstation
 
 ---
 
-## 3. Topology Co-Design & Monte Carlo Collision Yield
+## 3. Dual Notebook Design & Simulation Pipeline
 
-A major novelty of this processor is the rigorous mathematical elimination of multi-qubit frequency collisions (Hertzberg 2021 Type 1--7).
+The repository is structured into two master notebooks matching the end-to-end design and simulation chapters from the **Simon Quantum Hardware** lecture series:
 
-<p align="center">
-  <img src="fig1_yield_vs_sigma.png" width="75%" alt="Monte Carlo Collision-Free Yield vs Fabrication Variance" />
-  <br>
-  <em><b>Fig. 3:</b> 800,000-trial Monte Carlo yield curves across fabrication frequency spread $\sigma$. While crowded radial star layouts collapse to $0.00\%$ yield, our sparse planar architecture achieves $88.2\%$ collision-free yield at standard fabrication tolerances ($\sigma = 14\text{ MHz}$).</em>
-</p>
+### Notebook 1: [`01_Seven_Qubit_Chip_Layout.ipynb`](01_Seven_Qubit_Chip_Layout.ipynb)
+* **Planar Canvas:** $9\text{ mm} \times 7\text{ mm}$ high-resistivity silicon (center at `[0 mm, 1 mm]`).
+* **7 Transmon Artificial Atoms:** `Q1`–`Q7`, with central transmon `Q4` equipped with an integrated CPW charge line (`TransmonPocketCL`, `make_CL = True`).
+* **7 Wirebond Launchpads:** `LP1`–`LP7` placed along the top ($y = +4.0\text{ mm}$) and bottom ($y = -2.0\text{ mm}$) chip boundaries.
+* **LineTee Couplers:** `Lt1`–`Lt4` positioned at $(x = \pm 500\,\mu\text{m}, y = 1000\,\mu\text{m})$ and $(x = \pm 1500\,\mu\text{m}, y = 1000\,\mu\text{m})$ with $50\,\mu\text{m}$ orthogonal stubs.
+* **Anchor-Guided Meanders (`RouteMixed`):** Synthesized using explicit waypoint vectors (`anchors4c`) and segment modes (`["S", "M", "S", "S"]`) to eliminate auto-router routing collisions.
+* **Straight Interconnects (`RouteStraight`):** Bridging `LineTee` through-pins (`prime_start`, `prime_end`) straight into transmon pads (`RS1`, `RS2`, `RS3`).
+* **Cleanroom GDSII Export:** Multi-layer mask generated directly for KLayout inspection.
 
-### Topology Comparison
+---
 
-```
-========================================================================================================
-TOPOLOGY A: Circular Star (Negative Control)                 TOPOLOGY B: Planar Heavy-Hex (Our Architecture)
-Collision-Free Yield: 0.00% (FAILURE)                        Collision-Free Yield: 88.2% (SUCCESS)
-========================================================================================================
+### Notebook 2: [`02_Single_Qubit_FEM_LOM_Simulation.ipynb`](02_Single_Qubit_FEM_LOM_Simulation.ipynb)
+* **Full-Wave HFSS Simulation:** Eigenmode solver setup (`n_modes = 2, passes = 10, Lj = 20 nH, Cj = 0 fF`) extracting cavity resonances and electromagnetic field distributions.
+* **Ansys Q3D LOM (Lumped Oscillator Model) Extraction:** Extraction of the full Maxwell mutual capacitance matrix across transmon pads, ground plane, and charge line on qubit `Q4`.
+* **Authentic Extracted Physical Parameters:**
 
-                 [Q1]                                         Q0 <=======> Q1 <=======> Q2   (Top Row)
-                /    \                                                      ^
-          [Q6]        [Q2]                                                  | (Bus_1_3)
-            \          /                                                    v
-             ── [Q0] ──                                                    Q3        (Center Hub)
-            /  (Hub)   \                                                    ^
-          [Q5]        [Q3]                                                  | (Bus_3_5)
-                \    /                                                      v
-                 [Q4]                                         Q4 <=======> Q5 <=======> Q6   (Bottom Row)
+| Property | Symbol | Value Extracted from Q3D / LOM |
+| :--- | :--- | :--- |
+| **Qubit Transition Frequency** | $f_Q$ | **$4.974151\text{ GHz}$** |
+| **Charging Energy** | $E_C$ | **$259.292221\text{ MHz}$** |
+| **Josephson Energy** | $E_J$ | **$13.273404\text{ GHz}$** |
+| **Duffing Anharmonicity** | $\alpha$ | **$-297.200146\text{ MHz}$** |
+| **Charge Dispersion** | $\delta \epsilon$ | **$8.307683\text{ kHz}$** |
+| **Josephson Inductance** | $L_q$ | **$12.305036\text{ nH}$** |
+| **Total Shunt Capacitance** | $C_q$ | **$74.704239\text{ fF}$** |
+| **Purcell Relaxation Limit** | $T_1$ | **$36.001219\,\mu\text{s}$** |
 
-  * Max Coordination: z = 6                                    * Max Coordination: z <= 3
-  * Severe microwave crosstalk & crowding                     * 2.0 mm vertical spatial isolation
-  * Catastrophic Hertzberg Type 1-7 collisions                 * Clean frequency detuning; 88.2% yield
-========================================================================================================
-```
+* **scqubits Hamiltonian Integration:**
+  Passing the authentic simulated numbers ($E_J = 13.273\text{ GHz}, E_C = 0.2593\text{ GHz}$) into `scqubits.Transmon` to compute:
+  1. **Stationary Wavefunctions:** $\psi_0(\phi), \psi_1(\phi), \psi_2(\phi)$ plotted inside the non-linear cosine potential $V(\phi) = -E_J \cos \phi$.
+  2. **Charge Dispersion Immunity:** Energy spectrum $E_m(n_g)$ proving charge-noise immunity across gate charge $n_g \in [-2, 2]$.
+  3. **Interactive Widget GUI:** Direct support for `scq.GUI()` inside JupyterLab.
 
 ---
 
@@ -113,113 +117,18 @@ Before planar lithography, the cQED network was synthesized as a lumped-element 
 
 ## 5. Verified Working Code & Quickstart
 
-The entire processor is defined parametrically in [**`Seven_Qubit_Chip_Starter.ipynb`**](Seven_Qubit_Chip_Starter.ipynb) and [**`simon_7qubit_complete_chip.py`**](simon_7qubit_complete_chip.py).
-
-### How to Run:
-
-#### Option 1: JupyterLab (Interactive Notebook)
+### Running in JupyterLab:
 ```powershell
-& "C:\Users\noobg\Miniconda3\envs\qmetal\Scripts\jupyter-lab.exe" Seven_Qubit_Chip_Starter.ipynb
+# Launch Notebook 1: Planar Layout Implementation
+& "C:\Users\noobg\Miniconda3\envs\qmetal\Scripts\jupyter-lab.exe" 01_Seven_Qubit_Chip_Layout.ipynb
+
+# Launch Notebook 2: FEM Electrodynamics & scqubits Analysis
+& "C:\Users\noobg\Miniconda3\envs\qmetal\Scripts\jupyter-lab.exe" 02_Single_Qubit_FEM_LOM_Simulation.ipynb
 ```
 
-#### Option 2: Standalone Desktop GUI Application
+### Running Standalone Desktop GUI Application:
 ```powershell
 & "C:\Users\noobg\Miniconda3\envs\qmetal\python.exe" simon_7qubit_complete_chip.py
-```
-
-### Complete Architecture Python Implementation:
-```python
-import os
-os.environ["QT_API"] = "pyside2"
-
-import qiskit_metal as metal
-from qiskit_metal import designs, MetalGUI, Dict
-from qiskit_metal.qlibrary.qubits.transmon_pocket_6 import TransmonPocket6
-from qiskit_metal.qlibrary.qubits.transmon_pocket_cl import TransmonPocketCL
-from qiskit_metal.qlibrary.tlines.meandered import RouteMeander
-from qiskit_metal.qlibrary.terminations.launchpad_wb import LaunchpadWirebond
-
-# 1. Initialize 10mm x 10mm Silicon Chip Design
-design = designs.DesignPlanar({}, True)
-design.chips.main.size['size_x'] = '10mm'
-design.chips.main.size['size_y'] = '10mm'
-gui = MetalGUI(design)
-
-# 2. Place Central Tunable Transmon (Q4) with Charge Line
-q4_opts = Dict(
-    pos_x="0.0mm", pos_y="0.87mm", orientation="0.0",
-    pad_width="455um", pad_height="90um", pad_gap="30um",
-    pocket_width="650um", pocket_height="650um",
-    make_CL=True, cl_gap="6um", cl_width="10um", cl_length="20um",
-    connection_pads=Dict(
-        bus_left=Dict(loc_W=-1, loc_H=-1, pad_width='50um', pad_height='30um'),
-        bus_right=Dict(loc_W=1, loc_H=-1, pad_width='50um', pad_height='30um')
-    )
-)
-q4 = TransmonPocketCL(design, "Q4", options=q4_opts)
-
-# 3. Place Outer 6 Transmons (Q0, Q1, Q3, Q5, Q2, Q6)
-other_qubits = {
-    "Q0": Dict(pos_x="-2.5mm", pos_y="0.0mm", orientation="90.0",
-               connection_pads=Dict(bus_top=Dict(loc_W=1, loc_H=1), readout=Dict(loc_W=-1, loc_H=-1))),
-    "Q1": Dict(pos_x="-2.5mm", pos_y="1.8mm", orientation="90.0",
-               connection_pads=Dict(bus_bot=Dict(loc_W=1, loc_H=-1), bus_right=Dict(loc_W=-1, loc_H=-1), readout=Dict(loc_W=1, loc_H=1))),
-    "Q3": Dict(pos_x="-1.35mm", pos_y="0.87mm", orientation="0.0",
-               connection_pads=Dict(bus_left=Dict(loc_W=-1, loc_H=1), bus_right=Dict(loc_W=1, loc_H=-1), readout=Dict(loc_W=1, loc_H=1))),
-    "Q5": Dict(pos_x="1.35mm", pos_y="0.87mm", orientation="0.0",
-               connection_pads=Dict(bus_left=Dict(loc_W=-1, loc_H=-1), bus_right=Dict(loc_W=1, loc_H=1), readout=Dict(loc_W=-1, loc_H=1))),
-    "Q2": Dict(pos_x="2.5mm", pos_y="1.8mm", orientation="90.0",
-               connection_pads=Dict(bus_bot=Dict(loc_W=1, loc_H=-1), bus_left=Dict(loc_W=-1, loc_H=-1), readout=Dict(loc_W=1, loc_H=1))),
-    "Q6": Dict(pos_x="2.5mm", pos_y="0.0mm", orientation="90.0",
-               connection_pads=Dict(bus_top=Dict(loc_W=1, loc_H=1), readout=Dict(loc_W=-1, loc_H=-1))),
-}
-for name, opts in other_qubits.items():
-    opts.update(dict(pad_width="455um", pad_height="90um", pad_gap="30um", pocket_width="650um", pocket_height="650um"))
-    TransmonPocket6(design, name, options=opts)
-
-# 4. Place 6 Wirebond Launchpads (4 Top + 2 Bottom)
-launchpads = {
-    "LP_Q1": Dict(pos_x="-2.5mm", pos_y="4.0mm", orientation="-90.0"),
-    "LP_Q3": Dict(pos_x="-1.0mm", pos_y="4.2mm", orientation="-90.0"),
-    "LP_Q5": Dict(pos_x="1.0mm",  pos_y="4.2mm", orientation="-90.0"),
-    "LP_Q2": Dict(pos_x="2.5mm",  pos_y="4.0mm", orientation="-90.0"),
-    "LP_Q0": Dict(pos_x="-2.5mm", pos_y="-2.0mm", orientation="90.0"),
-    "LP_Q6": Dict(pos_x="2.5mm",  pos_y="-2.0mm", orientation="90.0"),
-}
-for name, opts in launchpads.items():
-    LaunchpadWirebond(design, name, options=opts)
-
-# 5. Route 6 Meandered Readout Resonators
-readouts = [
-    ("Readout_Q0", "Q0", "readout", "LP_Q0", "tie"),
-    ("Readout_Q1", "Q1", "readout", "LP_Q1", "tie"),
-    ("Readout_Q3", "Q3", "readout", "LP_Q3", "tie"),
-    ("Readout_Q5", "Q5", "readout", "LP_Q5", "tie"),
-    ("Readout_Q2", "Q2", "readout", "LP_Q2", "tie"),
-    ("Readout_Q6", "Q6", "readout", "LP_Q6", "tie"),
-]
-for name, q_comp, q_pin, lp_comp, lp_pin in readouts:
-    RouteMeander(design, name, options=Dict(pin_inputs=Dict(start_pin=Dict(component=q_comp, pin=q_pin), end_pin=Dict(component=lp_comp, pin=lp_pin)), fillet="99um"))
-
-# 6. Route 6 Inter-Qubit Coupling Buses
-coupling_buses = [
-    ("Bus_Q0_Q1", "Q0", "bus_top",   "Q1", "bus_bot"),
-    ("Bus_Q1_Q3", "Q1", "bus_right", "Q3", "bus_left"),
-    ("Bus_Q3_Q4", "Q3", "bus_right", "Q4", "bus_left"),
-    ("Bus_Q4_Q5", "Q4", "bus_right", "Q5", "bus_left"),
-    ("Bus_Q5_Q2", "Q5", "bus_right", "Q2", "bus_left"),
-    ("Bus_Q2_Q6", "Q2", "bus_bot",   "Q6", "bus_top"),
-]
-for name, q_start, pin_start, q_end, pin_end in coupling_buses:
-    RouteMeander(design, name, options=Dict(pin_inputs=Dict(start_pin=Dict(component=q_start, pin=pin_start), end_pin=Dict(component=q_end, pin=pin_end)), fillet="99um"))
-
-# 7. Rebuild & Autoscale
-design.rebuild()
-gui.autoscale()
-
-# 8. Export Nanofabrication Mask (GDSII)
-design.renderers.gds.export_to_gds("seven_qubit_chip_mask.gds")
-print("[SUCCESS] Complete 7-qubit quantum processor synthesized and mask exported!")
 ```
 
 ---
