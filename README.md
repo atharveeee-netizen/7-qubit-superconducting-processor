@@ -24,13 +24,13 @@ Operating in the circuit quantum electrodynamics (cQED) dispersive regime ($|\De
 Below are the authentic execution captures from the local laboratory workstation running inside the Qiskit Metal CAD canvas:
 
 <p align="center">
-  <img src="simon_7qubit_cad_live_zoom.png" width="85%" alt="7-Qubit Quantum Processor Layout Zoom" />
+  <img src="figures/simon_7qubit_cad_live_zoom.png" width="85%" alt="7-Qubit Quantum Processor Layout Zoom" />
   <br>
   <em><b>Fig. 1:</b> Full-chip planar CAD layout in Qiskit Metal following interactive autoscale. Depicts the 7 transmon pockets, central flux-tunable transmon Q4 with charge line ($y = +0.87\text{ mm}$), $99\,\mu\text{m}$ corner fillets on the 6 meandered resonators, 6 inter-qubit coupling buses, and outer wirebond launchpads.</em>
 </p>
 
 <p align="center">
-  <img src="simon_7qubit_gui_live_full.png" width="85%" alt="Qiskit Metal GUI Component Hierarchy" />
+  <img src="figures/simon_7qubit_gui_live_full.png" width="85%" alt="Qiskit Metal GUI Component Hierarchy" />
   <br>
   <em><b>Fig. 2:</b> Native Qiskit Metal Qt GUI window showing all components ($Q_1$--$Q_7$, launchpads, LineTee couplers, readout meanders) built with verified <code>good</code> status and zero geometric collisions.</em>
 </p>
@@ -98,7 +98,7 @@ The repository is structured into two master notebooks matching the end-to-end d
 Before planar lithography, the cQED network was synthesized as a lumped-element classical equivalent circuit in Ansys Circuit (Nexxim).
 
 <p align="center">
-  <img src="ansys_circuit_schematic.png" width="75%" alt="Ansys Circuit Schematic" />
+  <img src="figures/ansys_circuit_schematic.png" width="75%" alt="Ansys Circuit Schematic" />
   <br>
   <em><b>Fig. 4:</b> Lumped equivalent circuit schematic in Ansys Circuit: parallel LC tanks ($C_r = 340\text{ fF}, L_r = 1.5\text{ nH}$ for resonator; $C_q = 70\text{ fF}, L_J = 10\text{ nH}$ for transmon) with coupling capacitors $C_{\text{in}} = 2.0\text{ fF}$ and $C_c = 4.0\text{ fF}$.</em>
 </p>
@@ -106,9 +106,9 @@ Before planar lithography, the cQED network was synthesized as a lumped-element 
 ### S-Parameter, Phase & Impedance Validation Results
 
 <p align="center">
-  <img src="ansys_s_parameter_plot.png" width="32%" alt="S21 Transmission Notch" />
-  <img src="ansys_s21_phase_plot.png" width="32%" alt="Transmission Phase Step" />
-  <img src="ansys_z11_impedance_plot.png" width="32%" alt="Input Impedance Magnitude" />
+  <img src="figures/ansys_s_parameter_plot.png" width="32%" alt="S21 Transmission Notch" />
+  <img src="figures/ansys_s21_phase_plot.png" width="32%" alt="Transmission Phase Step" />
+  <img src="figures/ansys_z11_impedance_plot.png" width="32%" alt="Input Impedance Magnitude" />
   <br>
   <em><b>Fig. 5:</b> Verified microwave responses. <b>Left:</b> Transmission $|S_{21}|$ sharp resonance notch at $7.042\text{ GHz}$ ($-20.8\text{ dB}$). <b>Center:</b> Transmission phase step $\angle S_{21}$ exhibits textbook $180^\circ$ jump ($-95^\circ \to +85^\circ$). <b>Right:</b> Input impedance $|Z_{11}|$ peaks at $51.8\text{ k}\Omega$ confirming low dielectric loss and $Q_L \approx 7,040$.</em>
 </p>
